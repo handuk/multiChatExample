@@ -1,6 +1,7 @@
 const roomManager = require('./roomManager');
 
 exports.setSocketServer = (io) => {
+    let roomUser = {};
 
     function removeRoomUser(socket){
         let arrRoomUser = roomUser[socket.user.roomId];
@@ -13,8 +14,6 @@ exports.setSocketServer = (io) => {
         io.to(socket.user.roomId).emit('updateRoom', arrRoomUser);
         io.to(socket.user.roomId).emit('updateChat', `${socket.user.userName} 님이 퇴장하셨습니다`);
     }
-
-    let roomUser = {};
 
     io.on('connection', (socket) => {
 
